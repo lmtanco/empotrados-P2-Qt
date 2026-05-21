@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/CacoVentana.png</file>
+        <file>images/Casa.png</file>
+        <file>images/Casoplon.png</file>
+        <file>images/BulbOff.png</file>
+        <file>images/BulbOn.png</file>
+        <file>images/CamaraIAlarm.png</file>
+        <file>images/CamaraD.png</file>
+        <file>images/CamaraDAlarm.png</file>
+        <file>images/CamaraI.png</file>
+        <file>images/Ventana.png</file>
+        <file>images/BombillaRGB.png</file>
+        <file>images/Burglar.png</file>
+        <file>images/Sirena.png</file>
+    </qresource>
+</RCC>

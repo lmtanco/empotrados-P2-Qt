@@ -1,0 +1,49 @@
+# Archivos generados por Qt Creator
+*.autosave
+*.orig
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+*.moc
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+Makefile
+Makefile.*
+
+# Directorios de build
+build/
+build-*/
+debug/
+release/
+.qmake.stash
+.qmake.cache
+
+# Binarios compilados
+*.o
+*.obj
+*.a
+*.lib
+*.dll
+*.dylib
+*.so
+*.so.*
+*.exe
+GUIPanel
+
+# Qt Creator temporales
+*.creator.user
+*.creator.user.*
+CMakeLists.txt.user
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Variables de entorno locales
+.env
+.env.local
