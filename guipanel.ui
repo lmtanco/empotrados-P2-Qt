@@ -82,7 +82,7 @@
     <property name="title">
      <string>Control iluminación</string>
     </property>
-    <widget class="QCheckBox" name="controlLuz2_v">
+    <widget class="QCheckBox" name="controlLuz2_y">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -92,10 +92,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Luz2 (verde)</string>
+      <string>Luz2 (amarilla)</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="controlLuz3_a">
+    <widget class="QCheckBox" name="controlLuz3_g">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -105,7 +105,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Luz3 (azul)</string>
+      <string>Luz3 (verde)</string>
      </property>
     </widget>
     <widget class="QCheckBox" name="controlLuz1_r">
@@ -173,7 +173,7 @@
       </rect>
      </property>
      <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
+      <enum>Qt::FocusPolicy::StrongFocus</enum>
      </property>
      <property name="toolTip">
       <string>Shows the pressure</string>
@@ -219,7 +219,7 @@
       </rect>
      </property>
      <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
+      <enum>Qt::LayoutDirection::RightToLeft</enum>
      </property>
      <property name="text">
       <string>Alarma Camara</string>
@@ -238,7 +238,7 @@
       </rect>
      </property>
      <property name="layoutDirection">
-      <enum>Qt::RightToLeft</enum>
+      <enum>Qt::LayoutDirection::RightToLeft</enum>
      </property>
      <property name="text">
       <string>Alarma Ventana</string>
@@ -454,7 +454,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="luz3_a">
+   <widget class="QLabel" name="luz3_g">
     <property name="geometry">
      <rect>
       <x>390</x>
@@ -473,7 +473,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="luz2_v">
+   <widget class="QLabel" name="luz2_y">
     <property name="geometry">
      <rect>
       <x>160</x>
@@ -622,7 +622,7 @@
     <string>MQTT Broker</string>
    </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
    <property name="wordWrap">
     <bool>true</bool>
@@ -702,7 +702,7 @@
     <string>RPi3 conectado</string>
    </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
    <property name="wordWrap">
     <bool>true</bool>

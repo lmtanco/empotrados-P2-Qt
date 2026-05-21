@@ -38,6 +38,10 @@ private slots:
 
     void on_pruebaCamara_released();
 
+    void on_controlLuz2_y_stateChanged(int arg1);
+
+    void on_controlLuz3_g_stateChanged(int arg1);
+
 private: // funciones privadas
 //    void pingDevice();
     void startClient();

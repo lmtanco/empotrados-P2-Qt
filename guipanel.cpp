@@ -17,7 +17,10 @@ GUIPanel::GUIPanel(QWidget *parent) :  // Constructor de la clase
   , transactionCount(0)
 {
     ui->setupUi(this);                // Conecta la clase con su interfaz gráfico.
+    ui->leHost->setText("192.168.2.3"); // valor por defecto
+    ui->pub_topic_intro->setText("casa/luces");
     setWindowTitle(tr("Control Domótico")); // Título de la ventana
+
 
     _client=new QMQTT::Client(QHostAddress::LocalHost, 1883); //localhost y lo otro son valores por defecto
 
@@ -112,6 +115,28 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
 
                 ui->controlLuz1_r->blockSignals(previousblockinstate);
             }
+            entrada=objeto_json["luz2_y"];
+            if (entrada.isBool()){
+                checked=entrada.toBool();
+                previousblockinstate=ui->controlLuz2_y->blockSignals(true);
+                ui->controlLuz2_y->setChecked(checked);
+                if(checked)
+                    ui->luz2_y->setPixmap(QPixmap(":/images/BulbOn.png"));
+                else
+                    ui->luz2_y->setPixmap(QPixmap(":/images/BulbOff.png"));
+                ui->controlLuz2_y->blockSignals(previousblockinstate);
+            }
+            entrada=objeto_json["luz3_g"];
+            if (entrada.isBool()){
+                checked=entrada.toBool();
+                previousblockinstate=ui->controlLuz3_g->blockSignals(true);
+                ui->controlLuz3_g->setChecked(checked);
+                if(checked)
+                    ui->luz3_g->setPixmap(QPixmap(":/images/BulbOn.png"));
+                else
+                    ui->luz3_g->setPixmap(QPixmap(":/images/BulbOff.png"));
+                ui->controlLuz3_g->blockSignals(previousblockinstate);
+            }
         }
     }
 }
@@ -170,4 +195,42 @@ void GUIPanel::on_pruebaCamara_released()
 {
     ui->camara->setPixmap(QPixmap(":/images/CamaraI.png"));
 }
+
+
+void GUIPanel::on_controlLuz2_y_stateChanged(int arg1)
+{
+    QJsonObject objeto_json;
+    //Añade un campo "luz2_y" al objeto JSON, con el valor (true o false) contenido en checked
+    objeto_json["luz2_y"]=ui->controlLuz2_y->isChecked(); //Puedo hacer ["luz2_y"] porque el operador [] está sobrecargado.
+
+    QJsonDocument mensaje(objeto_json); //crea un objeto QJsonDocument conteniendo el objeto objeto_json (necesario para obtener el mensaje formateado en JSON)
+
+    QMQTT::Message msg(0, pub_topic, mensaje.toJson()); //Crea el mensaje MQTT contieniendo el mensaje en formato JSON
+    _client->publish(msg); //     //Publica el mensaje
+
+    if(Qt::Checked == arg1)
+        ui->luz2_y->setPixmap(QPixmap(":/images/BulbOn.png"));
+    else
+        ui->luz2_y->setPixmap(QPixmap(":/images/BulbOff.png"));
+}
+
+
+
+void GUIPanel::on_controlLuz3_g_stateChanged(int arg1)
+{
+    QJsonObject objeto_json;
+    //Añade un campo "luz3_g" al objeto JSON, con el valor (true o false) contenido en checked
+    objeto_json["luz3_g"]=ui->controlLuz3_g->isChecked(); //Puedo hacer ["luz3_g"] porque el operador [] está sobrecargado.
+
+    QJsonDocument mensaje(objeto_json); //crea un objeto QJsonDocument conteniendo el objeto objeto_json (necesario para obtener el mensaje formateado en JSON)
+
+    QMQTT::Message msg(0, pub_topic, mensaje.toJson()); //Crea el mensaje MQTT contieniendo el mensaje en formato JSON
+    _client->publish(msg); //     //Publica el mensaje
+
+    if(Qt::Checked == arg1)
+        ui->luz3_g->setPixmap(QPixmap(":/images/BulbOn.png"));
+    else
+        ui->luz3_g->setPixmap(QPixmap(":/images/BulbOff.png"));
+}
+
 
