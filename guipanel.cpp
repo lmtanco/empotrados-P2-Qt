@@ -7,6 +7,9 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
+#include <QGraphicsColorizeEffect>
+
+
 #include<stdint.h>      // Cabecera para usar tipos de enteros con tamaño
 #include<stdbool.h>     // Cabecera para usar booleanos
 
@@ -146,6 +149,12 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
                 int green = entradag.toInt();
                 int blue = entradab.toInt();
                 ui->colorWheel->setColor(QColor(red, green, blue));
+
+                // Teñir la imagen que representa el led rgb. 
+                auto *effect = new QGraphicsColorizeEffect(this);
+                effect->setColor(QColor(red, green, blue));
+                ui->luz_rgb->setGraphicsEffect(effect);
+
             }
         }
     }
@@ -183,10 +192,12 @@ void GUIPanel::on_controlLuz1_r_stateChanged(int arg1)
     QMQTT::Message msg(0, pub_topic, mensaje.toJson()); //Crea el mensaje MQTT contieniendo el mensaje en formato JSON
     _client->publish(msg); //     //Publica el mensaje
 
+    /* esto ya se hace a través de mqtt
     if(Qt::Checked == arg1)
         ui->luz1_r->setPixmap(QPixmap(":/images/BulbOn.png"));
     else
         ui->luz1_r->setPixmap(QPixmap(":/images/BulbOff.png"));
+    */
 }
 
 void GUIPanel::on_statusButton_clicked()
@@ -218,10 +229,12 @@ void GUIPanel::on_controlLuz2_y_stateChanged(int arg1)
     QMQTT::Message msg(0, pub_topic, mensaje.toJson()); //Crea el mensaje MQTT contieniendo el mensaje en formato JSON
     _client->publish(msg); //     //Publica el mensaje
 
+        /* esto ya se hace a través de mqtt
     if(Qt::Checked == arg1)
         ui->luz2_y->setPixmap(QPixmap(":/images/BulbOn.png"));
     else
         ui->luz2_y->setPixmap(QPixmap(":/images/BulbOff.png"));
+*/
 }
 
 
@@ -235,12 +248,15 @@ void GUIPanel::on_controlLuz3_g_stateChanged(int arg1)
     QJsonDocument mensaje(objeto_json); //crea un objeto QJsonDocument conteniendo el objeto objeto_json (necesario para obtener el mensaje formateado en JSON)
 
     QMQTT::Message msg(0, pub_topic, mensaje.toJson()); //Crea el mensaje MQTT contieniendo el mensaje en formato JSON
+
     _client->publish(msg); //     //Publica el mensaje
 
+    /*
     if(Qt::Checked == arg1)
         ui->luz3_g->setPixmap(QPixmap(":/images/BulbOn.png"));
     else
         ui->luz3_g->setPixmap(QPixmap(":/images/BulbOff.png"));
+    */
 }
 
 
