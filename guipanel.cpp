@@ -137,6 +137,16 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
                     ui->luz3_g->setPixmap(QPixmap(":/images/BulbOff.png"));
                 ui->controlLuz3_g->blockSignals(previousblockinstate);
             }
+            QJsonValue entradar = objeto_json["luz1RedPWM"];
+            QJsonValue entradag = objeto_json["luz1GreenPWM"];
+            QJsonValue entradab = objeto_json["luz1BluePWM"];
+            if (entradar.isDouble() && entradab.isDouble() && entradag.isDouble())
+            {
+                int red = entradar.toInt();
+                int green = entradag.toInt();
+                int blue = entradab.toInt();
+                ui->colorWheel->setColor(QColor(red, green, blue));
+            }
         }
     }
 }
@@ -233,4 +243,24 @@ void GUIPanel::on_controlLuz3_g_stateChanged(int arg1)
         ui->luz3_g->setPixmap(QPixmap(":/images/BulbOff.png"));
 }
 
+
+void GUIPanel::on_pushButton_sendRGB_clicked()
+{
+
+    QColor arg1 = ui->colorWheel->color();
+
+    // Creo variables intermedias para ver qué estoy mandando por mqtt
+    int red = arg1.red();
+    int green = arg1.green();
+    int blue = arg1.blue();
+
+    // Envio al broker mqtt
+    QJsonObject objeto_json;
+    objeto_json["luz1RedPWM"] = red;
+    objeto_json["luz1GreenPWM"] = green;
+    objeto_json["luz1BluePWM"] = blue;
+    QJsonDocument mensaje(objeto_json);
+    QMQTT::Message ms(0, "casa/pwm", mensaje.toJson());
+    _client->publish(ms);
+}
 

@@ -42,6 +42,8 @@ private slots:
 
     void on_controlLuz3_g_stateChanged(int arg1);
 
+    void on_pushButton_sendRGB_clicked();
+
 private: // funciones privadas
 //    void pingDevice();
     void startClient();
