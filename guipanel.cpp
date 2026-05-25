@@ -21,7 +21,7 @@ GUIPanel::GUIPanel(QWidget *parent) :  // Constructor de la clase
 {
     ui->setupUi(this);                // Conecta la clase con su interfaz gráfico.
     ui->leHost->setText("192.168.2.3"); // valor por defecto
-    ui->pub_topic_intro->setText("casa/luces");
+    ui->pub_topic_intro->setText("casa/#");
     setWindowTitle(tr("Control Domótico")); // Título de la ventana
 
 
@@ -102,6 +102,9 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
         { //Tengo que comprobar que el mensaje es del tipo adecuado y no hay errores de parseo...
 
             QJsonObject objeto_json=mensaje.object();
+
+            if (message.topic().contains("luces")) {
+
             QJsonValue entrada=objeto_json["luz1_r"]; //Obtengo la entrada redLed. Esto lo puedo hacer porque el operador [] está sobrecargado
             // Ejemplo de actualizacion de checkbox de control de luz por cambio en otro interfaz
             if (entrada.isBool()){   //Compruebo que es booleano...
@@ -140,6 +143,8 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
                     ui->luz3_g->setPixmap(QPixmap(":/images/BulbOff.png"));
                 ui->controlLuz3_g->blockSignals(previousblockinstate);
             }
+            }
+            else if (message.topic().contains("pwm")) {
             QJsonValue entradar = objeto_json["luz1RedPWM"];
             QJsonValue entradag = objeto_json["luz1GreenPWM"];
             QJsonValue entradab = objeto_json["luz1BluePWM"];
@@ -156,6 +161,30 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
                 ui->luz_rgb->setGraphicsEffect(effect);
 
             }
+            }
+            else if (message.topic().contains("pulsadores")){
+                QJsonValue entrada_cual = objeto_json["pulsador"];
+                QJsonValue entrada_estado = objeto_json["estado"];
+                if (entrada_cual.isDouble() && entrada_estado.isBool()){
+                    int pulsador = entrada_cual.toInt();
+                    bool estado = entrada_estado.toBool();
+                    switch(pulsador){
+                    case 1:
+                    {
+                        ui->botonalarma1->setChecked(estado);
+                        ui->intrusion->setVisible(estado);
+                        break;
+                    }
+                    default:
+                        // TODO: mensaje de error
+                        break;
+                    }
+                }
+            }
+            else {
+                // TODO: mensaje de error.
+            }
+
         }
     }
 }
