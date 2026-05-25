@@ -218,7 +218,7 @@ void GUIPanel::on_controlLuz1_r_stateChanged(int arg1)
 
     QJsonDocument mensaje(objeto_json); //crea un objeto QJsonDocument conteniendo el objeto objeto_json (necesario para obtener el mensaje formateado en JSON)
 
-    QMQTT::Message msg(0, pub_topic, mensaje.toJson()); //Crea el mensaje MQTT contieniendo el mensaje en formato JSON
+    QMQTT::Message msg(0, "casa/luces", mensaje.toJson()); //Crea el mensaje MQTT contieniendo el mensaje en formato JSON
     _client->publish(msg); //     //Publica el mensaje
 
     /* esto ya se hace a través de mqtt
@@ -255,7 +255,7 @@ void GUIPanel::on_controlLuz2_y_stateChanged(int arg1)
 
     QJsonDocument mensaje(objeto_json); //crea un objeto QJsonDocument conteniendo el objeto objeto_json (necesario para obtener el mensaje formateado en JSON)
 
-    QMQTT::Message msg(0, pub_topic, mensaje.toJson()); //Crea el mensaje MQTT contieniendo el mensaje en formato JSON
+    QMQTT::Message msg(0, "casa/luces", mensaje.toJson()); //Crea el mensaje MQTT contieniendo el mensaje en formato JSON
     _client->publish(msg); //     //Publica el mensaje
 
         /* esto ya se hace a través de mqtt
@@ -276,7 +276,7 @@ void GUIPanel::on_controlLuz3_g_stateChanged(int arg1)
 
     QJsonDocument mensaje(objeto_json); //crea un objeto QJsonDocument conteniendo el objeto objeto_json (necesario para obtener el mensaje formateado en JSON)
 
-    QMQTT::Message msg(0, pub_topic, mensaje.toJson()); //Crea el mensaje MQTT contieniendo el mensaje en formato JSON
+    QMQTT::Message msg(0, "casa/luces", mensaje.toJson()); //Crea el mensaje MQTT contieniendo el mensaje en formato JSON
 
     _client->publish(msg); //     //Publica el mensaje
 
