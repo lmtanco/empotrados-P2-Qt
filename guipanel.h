@@ -44,6 +44,8 @@ private slots:
 
     void on_pushButton_sendRGB_clicked();
 
+    void on_lecturaCamara_clicked();
+
 private: // funciones privadas
 //    void pingDevice();
     void startClient();

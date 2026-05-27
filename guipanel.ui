@@ -256,6 +256,11 @@
        <height>31</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>.AppleSystemUIFont</family>
+      </font>
+     </property>
      <property name="text">
       <string>Lectura Cámara</string>
      </property>
