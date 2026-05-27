@@ -182,7 +182,14 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
                             ui->statusLabel->setText("La cámara detectó un intruso");
                         else
                             ui->statusLabel->setText("Conectado"); // por ejemplo :-P
-
+                        break;
+                    }
+                    case 3:
+                    {
+                        ui->botonalarma1->setChecked(false);
+                        ui->intrusion->setVisible(false);
+                        ui->botonalarma2->setChecked(false);
+                        ui->statusLabel->setText("Reset de alarmas");
                     }
                     default:
                         // TODO: mensaje de error
@@ -321,15 +328,33 @@ void GUIPanel::on_pushButton_sendRGB_clicked()
 
 void GUIPanel::on_lecturaCamara_clicked()
 {
-       QJsonObject objeto_json;
+    QJsonObject objeto_json;
     //Añade un campo "camara" al objeto JSON, con el valor (true) contenido en checked
     objeto_json["camara"]=true;
-
     QJsonDocument mensaje(objeto_json); //crea un objeto QJsonDocument conteniendo el objeto objeto_json (necesario para obtener el mensaje formateado en JSON)
-
     QMQTT::Message msg(0, "casa/camara", mensaje.toJson()); //Crea el mensaje MQTT contieniendo el mensaje en formato JSON
-
     _client->publish(msg); //     //Publica el mensaje
 
+}
+
+
+
+void GUIPanel::on_buzzerOn_clicked()
+{
+    QJsonObject objeto_json;
+    objeto_json["sonido"]=true;
+    QJsonDocument mensaje(objeto_json);
+    QMQTT::Message msg(0, "casa/alarmas", mensaje.toJson());
+    _client->publish(msg);
+}
+
+
+void GUIPanel::on_buzzerOff_clicked()
+{
+    QJsonObject objeto_json;
+    objeto_json["sonido"]=false;
+    QJsonDocument mensaje(objeto_json);
+    QMQTT::Message msg(0, "casa/alarmas", mensaje.toJson());
+    _client->publish(msg);
 }
 

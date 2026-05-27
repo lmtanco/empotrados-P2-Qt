@@ -46,6 +46,10 @@ private slots:
 
     void on_lecturaCamara_clicked();
 
+    void on_buzzerOn_clicked();
+
+    void on_buzzerOff_clicked();
+
 private: // funciones privadas
 //    void pingDevice();
     void startClient();
