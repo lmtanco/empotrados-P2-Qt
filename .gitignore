@@ -47,3 +47,4 @@ CMakeLists.txt.user
 # Variables de entorno locales
 .env
 .env.local
+diagrama_clases.puml
