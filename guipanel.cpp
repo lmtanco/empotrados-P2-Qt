@@ -197,6 +197,16 @@ void GUIPanel::onMQTT_Received(const QMQTT::Message &message)
                     }
                 }
             }
+            else if (message.topic().contains("sensores")){
+                QJsonValue entrada_temp = objeto_json["temperatura"];
+                QJsonValue entrada_hum = objeto_json["humedad"];
+                if (entrada_temp.isDouble() && entrada_hum.isDouble()){
+                    int temperatura = entrada_temp.toInt();
+                    int humedad = entrada_hum.toInt();
+                    ui->temperatura->setValue(temperatura);
+                    ui->manometer->setValue(humedad);
+                }
+            }
             else {
                 // TODO: mensaje de error.
             }
@@ -336,7 +346,6 @@ void GUIPanel::on_lecturaCamara_clicked()
     _client->publish(msg); //     //Publica el mensaje
 
 }
-
 
 
 void GUIPanel::on_buzzerOn_clicked()
